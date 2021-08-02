@@ -166,7 +166,6 @@ int main()
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_PROGRAM_POINT_SIZE);
     // build and compile shaders
     // -------------------------
     char* headDir = "/Users/haoxiangliang/Desktop/代码草稿/OpenGL/OpenGL_Test15_GLSL/OpenGL_Test15_GLSL/";
@@ -287,7 +286,7 @@ int main()
         glBindVertexArray(cubeVAO);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-        glDrawArrays(GL_POINTS, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
