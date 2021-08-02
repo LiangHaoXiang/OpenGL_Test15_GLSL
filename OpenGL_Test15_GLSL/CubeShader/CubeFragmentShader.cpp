@@ -11,7 +11,7 @@ void main()
 {
     vec3 I = normalize(Position - cameraPos);
     vec3 R = reflect(I, normalize(Normal));
-    if (gl_FragCoord.x < 400)
+    if (gl_FrontFacing)
     {
         FragColor = vec4(texture(skybox, R).rgb, 1.0);
     }
