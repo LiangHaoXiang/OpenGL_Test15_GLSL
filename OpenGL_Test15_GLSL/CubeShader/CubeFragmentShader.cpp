@@ -9,14 +9,8 @@ uniform samplerCube skybox;
 
 void main()
 {
+    gl_FragDepth = 0.0; // 这个片段现在的深度值为 0.0
     vec3 I = normalize(Position - cameraPos);
     vec3 R = reflect(I, normalize(Normal));
-    if (gl_FrontFacing)
-    {
-        FragColor = vec4(texture(skybox, R).rgb, 1.0);
-    }
-    else
-    {
-        FragColor = vec4(0.5, 0.5, 0.5, 1.0);
-    }
+    FragColor = vec4(texture(skybox, R).rgb, 1.0);
 }
