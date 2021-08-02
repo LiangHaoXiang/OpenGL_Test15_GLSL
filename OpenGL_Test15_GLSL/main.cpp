@@ -169,7 +169,7 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    char* headDir = "/Users/haoxiangliang/Desktop/代码草稿/OpenGL/OpenGL_Test14_SkyBox/OpenGL_Test14_SkyBox/";
+    char* headDir = "/Users/haoxiangliang/Desktop/代码草稿/OpenGL/OpenGL_Test15_GLSL/OpenGL_Test15_GLSL/";
     string p1 = string(headDir) + "CubeShader/CubeVertexShader.cpp";
     string p2 = string(headDir) + "CubeShader/CubeFragmentShader.cpp";
     Shader cubeShader(p1.c_str(), p2.c_str());
