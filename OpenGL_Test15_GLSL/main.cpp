@@ -225,6 +225,20 @@ int main()
     
     unsigned int cubeTexture = loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/container.jpg");
     
+    //Uniform缓冲
+    unsigned int uniformBlockIndexCube = glGetUniformBlockIndex(cubeShader.ID, "Matrices");
+    unsigned int uniformBlockIndexModel = glGetUniformBlockIndex(modelShader.ID, "Matrices");
+    
+    glUniformBlockBinding(cubeShader.ID, uniformBlockIndexCube, 0);
+    glUniformBlockBinding(modelShader.ID, uniformBlockIndexModel, 0);
+    
+    unsigned int uboMatrices;
+    glGenBuffers(1, &uboMatrices);
+    glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+    glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(mat4), NULL, GL_STATIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * sizeof(mat4));
+    
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -263,13 +277,18 @@ int main()
         glDepthMask(GL_TRUE);
 
         view = camera.GetViewMatrix();
+        
+        //填充所有共用的uniform数据
+        glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+        glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(mat4), value_ptr(projection));
+        glBufferSubData(GL_UNIFORM_BUFFER, sizeof(mat4), sizeof(mat4), value_ptr(view));
+        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+        
         model = translate(model, vec3(2.0f, -0.75f, 3.0f)); // translate it down so it's at the center of the scene
         model = scale(model, vec3(0.1f));    // it's a bit too big for our scene, so scale it down
         // don't forget to enable shader before setting uniforms
         // render the loaded model
         modelShader.use();
-        modelShader.setMat4("projection", projection);
-        modelShader.setMat4("view", view);
         modelShader.setMat4("model", model);
         ourModel.Draw(modelShader);
         
@@ -280,8 +299,6 @@ int main()
         cubeShader.setInt("skybox", 0);
         cubeShader.setVec3("cameraPos", camera.Position);
         cubeShader.setMat4("model", model);
-        cubeShader.setMat4("view", view);
-        cubeShader.setMat4("projection", projection);
         // cubes
         glBindVertexArray(cubeVAO);
         glActiveTexture(GL_TEXTURE0);
