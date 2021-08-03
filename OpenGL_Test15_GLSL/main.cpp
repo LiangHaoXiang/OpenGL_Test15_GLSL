@@ -226,18 +226,34 @@ int main()
     unsigned int cubeTexture = loadTexture("/Users/haoxiangliang/Desktop/未命名文件夹/container.jpg");
     
     //Uniform缓冲
-    unsigned int uniformBlockIndexCube = glGetUniformBlockIndex(cubeShader.ID, "Matrices");
-    unsigned int uniformBlockIndexModel = glGetUniformBlockIndex(modelShader.ID, "Matrices");
+    //----projection
+    unsigned int uniformBlockIndexCube_projection = glGetUniformBlockIndex(cubeShader.ID, "Matrices_Projection");
+    unsigned int uniformBlockIndexModel_projection = glGetUniformBlockIndex(modelShader.ID, "Matrices_Projection");
+    unsigned int uniformBlockIndexSky_projection = glGetUniformBlockIndex(skyboxShader.ID, "Matrices_Projection");
+    int bindPoint0 = 0;//绑定点0
+    glUniformBlockBinding(cubeShader.ID, uniformBlockIndexCube_projection, bindPoint0);
+    glUniformBlockBinding(modelShader.ID, uniformBlockIndexModel_projection, bindPoint0);
+    glUniformBlockBinding(skyboxShader.ID, uniformBlockIndexSky_projection, bindPoint0);
     
-    glUniformBlockBinding(cubeShader.ID, uniformBlockIndexCube, 0);
-    glUniformBlockBinding(modelShader.ID, uniformBlockIndexModel, 0);
-    
-    unsigned int uboMatrices;
-    glGenBuffers(1, &uboMatrices);
-    glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
-    glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(mat4), NULL, GL_STATIC_DRAW);
+    unsigned int uboMatrices_projection;
+    glGenBuffers(1, &uboMatrices_projection);
+    glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices_projection);
+    glBufferData(GL_UNIFORM_BUFFER, 1 * sizeof(mat4), NULL, GL_STATIC_DRAW);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
-    glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * sizeof(mat4));
+    glBindBufferRange(GL_UNIFORM_BUFFER, bindPoint0, uboMatrices_projection, 0, 1 * sizeof(mat4));
+    //----view
+    unsigned int uniformBlockIndexCube_view = glGetUniformBlockIndex(cubeShader.ID, "Matrices_View");
+    unsigned int uniformBlockIndexModel_view = glGetUniformBlockIndex(modelShader.ID, "Matrices_View");
+    int bindPoint1 = 1;//绑定点1
+    glUniformBlockBinding(cubeShader.ID, uniformBlockIndexCube_view, bindPoint1);
+    glUniformBlockBinding(modelShader.ID, uniformBlockIndexModel_view, bindPoint1);
+    
+    unsigned int uboMatrices_view;
+    glGenBuffers(1, &uboMatrices_view);
+    glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices_view);
+    glBufferData(GL_UNIFORM_BUFFER, 1 * sizeof(mat4), NULL, GL_STATIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    glBindBufferRange(GL_UNIFORM_BUFFER, bindPoint1, uboMatrices_view, 0, 1 * sizeof(mat4));
     
     // render loop
     // -----------
@@ -268,7 +284,6 @@ int main()
         skyboxShader.use();
         skyboxShader.setInt("skybox", 0);
         skyboxShader.setMat4("view", view);
-        skyboxShader.setMat4("projection", projection);
         glBindVertexArray(skyboxVAO);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
@@ -279,9 +294,12 @@ int main()
         view = camera.GetViewMatrix();
         
         //填充所有共用的uniform数据
-        glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+        glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices_projection);
         glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(mat4), value_ptr(projection));
-        glBufferSubData(GL_UNIFORM_BUFFER, sizeof(mat4), sizeof(mat4), value_ptr(view));
+        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+        
+        glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices_view);
+        glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(mat4), value_ptr(view));
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
         
         model = translate(model, vec3(2.0f, -0.75f, 3.0f)); // translate it down so it's at the center of the scene
