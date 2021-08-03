@@ -11,10 +11,10 @@
 		AB8D89C426B7CD6C00F50B7E /* libglfw.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8D89C326B7CD6C00F50B7E /* libglfw.dylib */; };
 		AB8D89C626B7CD7000F50B7E /* libGLEW.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8D89C526B7CD7000F50B7E /* libGLEW.dylib */; };
 		AB8D89C826B7CD7E00F50B7E /* libassimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8D89C726B7CD7E00F50B7E /* libassimp.dylib */; };
-		AB8D89CA26B7CDCC00F50B7E /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = AB8D89C926B7CDCC00F50B7E /* glad.c */; };
 		AB8D89D326B7CE2C00F50B7E /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8D89CB26B7CE2C00F50B7E /* Mesh.cpp */; };
 		AB8D89D426B7CE2C00F50B7E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8D89CD26B7CE2C00F50B7E /* Camera.cpp */; };
 		AB8D89D526B7CE2C00F50B7E /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8D89D026B7CE2C00F50B7E /* Model.cpp */; };
+		AB8D89E226B90E1500F50B7E /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = AB8D89E126B90E1500F50B7E /* glad.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,7 +35,6 @@
 		AB8D89C326B7CD6C00F50B7E /* libglfw.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.dylib; path = ../../../glfw/3.3.4/lib/libglfw.dylib; sourceTree = "<group>"; };
 		AB8D89C526B7CD7000F50B7E /* libGLEW.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.dylib; path = ../../../glew/2.2.0_1/lib/libGLEW.dylib; sourceTree = "<group>"; };
 		AB8D89C726B7CD7E00F50B7E /* libassimp.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.dylib; path = ../../../assimp/5.0.1/lib/libassimp.dylib; sourceTree = "<group>"; };
-		AB8D89C926B7CDCC00F50B7E /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glad.c; path = ../../../../glad/src/glad.c; sourceTree = "<group>"; };
 		AB8D89CB26B7CE2C00F50B7E /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		AB8D89CC26B7CE2C00F50B7E /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
 		AB8D89CD26B7CE2C00F50B7E /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -50,6 +49,7 @@
 		AB8D89DB26B7CE3B00F50B7E /* SkyFragmentShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SkyFragmentShader.cpp; sourceTree = "<group>"; };
 		AB8D89DD26B7CE3B00F50B7E /* CubeVertexShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CubeVertexShader.cpp; sourceTree = "<group>"; };
 		AB8D89DE26B7CE3B00F50B7E /* CubeFragmentShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CubeFragmentShader.cpp; sourceTree = "<group>"; };
+		AB8D89E126B90E1500F50B7E /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glad.c; path = ../../../../glad/src/glad.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +86,7 @@
 		AB8D89BA26B7CD5600F50B7E /* OpenGL_Test15_GLSL */ = {
 			isa = PBXGroup;
 			children = (
+				AB8D89E126B90E1500F50B7E /* glad.c */,
 				AB8D89DC26B7CE3B00F50B7E /* CubeShader */,
 				AB8D89D626B7CE3B00F50B7E /* ModelShader */,
 				AB8D89D926B7CE3B00F50B7E /* SkyShader */,
@@ -97,7 +98,6 @@
 				AB8D89D226B7CE2C00F50B7E /* Model.hpp */,
 				AB8D89CC26B7CE2C00F50B7E /* Shader.h */,
 				AB8D89D126B7CE2C00F50B7E /* stb_image.h */,
-				AB8D89C926B7CDCC00F50B7E /* glad.c */,
 				AB8D89BB26B7CD5600F50B7E /* main.cpp */,
 			);
 			path = OpenGL_Test15_GLSL;
@@ -196,11 +196,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB8D89E226B90E1500F50B7E /* glad.c in Sources */,
 				AB8D89D426B7CE2C00F50B7E /* Camera.cpp in Sources */,
 				AB8D89D326B7CE2C00F50B7E /* Mesh.cpp in Sources */,
 				AB8D89D526B7CE2C00F50B7E /* Model.cpp in Sources */,
 				AB8D89BC26B7CD5600F50B7E /* main.cpp in Sources */,
-				AB8D89CA26B7CDCC00F50B7E /* glad.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
